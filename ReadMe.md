@@ -20,21 +20,19 @@ https://www.pivpn.io/
 
 The answers should be the defaults throughout.
 
-
-
-
 # Setting up 
 
 # Copy the file from the pi to the host
 
 scp pi@192.168.1.999:/home/vpnpi/ovpns/vpn.ovpn .
 
-
-
-
-
-
 ## parallel running on port 1195
+
+fix internal ip address of pi
+
+login to your router and port forward your chosen port.
+
+Install openvpn using the script above.
 
 To point openvpn to a different port two changes need to be made.
 
@@ -54,7 +52,7 @@ then
 
     pivpn add
     
-    and create a new .ovpn file that worked on my new port -
+    and create a new .ovpn file that worked on new port
 
 
 # Firewalla
@@ -68,3 +66,39 @@ sudo journalctl -u openvpn
 ## shows the service starting and stopping
 
 grep VPN /var/log/syslog
+
+#
+
+# setupVars.conf
+
+PLAT=Raspbian
+OSCN=bullseye
+USING_UFW=0
+pivpnforceipv6route=0
+IPv4dev=eth0
+IPv4addr=192.168.1.xx/24
+IPv4gw=192.168.1.1
+install_user=vpnpi
+install_home=/home/vpnpi
+VPN=openvpn
+pivpnPROTO=udp
+pivpnPORT=119X
+pivpnDNS1=10.44.176.1
+pivpnDNS2=
+pivpnSEARCHDOMAIN=
+pivpnHOST=blahblah.ddns.net
+TWO_POINT_FOUR=1
+pivpnENCRYPT=256
+USE_PREDEFINED_DH_PARAM=
+INPUT_CHAIN_EDITED=0
+FORWARD_CHAIN_EDITED=0
+INPUT_CHAIN_EDITEDv6=
+FORWARD_CHAIN_EDITEDv6=
+pivpnDEV=tun0
+pivpnNET=10.44.176.0
+subnetClass=24
+pivpnenableipv6=0
+ALLOWED_IPS=""
+UNATTUPG=1
+INSTALLED_PACKAGES=(unattended-upgrades)
+HELP_SHOWN=1
