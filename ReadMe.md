@@ -10,6 +10,61 @@ https://medium.com/enekochan/compile-install-configure-and-make-start-on-boot-th
 
 https://www.noip.com/support/knowledgebase/running-linux-duc-v3-0-startup-2
 
+# install noip
+
+## Download and Install
+
+        wget http://www.noip.com/client/linux/noip-duc-linux.tar.gz
+        tar xzvpf noip-duc-linux.tar.gz
+        cd `find . -name "noip-[0-9]*"`
+        sudo make
+        sudo make install
+
+## Configure ??
+
+        sudo /usr/local/bin/noip2 -C
+
+
+        
+
+# Ensuring noip starts / restarts on reboot
+
+If you want to run the client at boot time (which you’ll probably want…) create an init.d script file called /etc/init.d/noip2 with this content:
+
+        #! /bin/sh
+
+        ### BEGIN INIT INFO
+        # Provides:          noip2
+        # Required-Start:    $syslog
+        # Required-Stop:     $syslog
+        # Default-Start:     2 3 4 5
+        # Default-Stop:      0 1 6
+        # Short-Description: noip.com client service
+        ### END INIT INFO
+        
+        # . /lib/lsb/init-functions
+        case "$1" in
+            start)
+                echo "Starting noip2."
+                /usr/local/bin/noip2
+            ;;
+            stop)
+                echo "Shutting down noip2."
+                killall noip2
+                #killproc /usr/local/bin/noip2
+            ;;
+            *)
+                echo "Usage: $0 {start|stop}"
+                exit 1
+        esac
+        
+        exit 0
+
+Then give it executable permissions and update the rc.d scripts:
+
+        sudo chmod +x /etc/init.d/noip2
+        sudo update-rc.d noip2 defaults
+
 # Installation of openvpn using pivpn script
 
 https://www.pcmag.com/how-to/how-to-create-a-vpn-server-with-raspberry-pi
