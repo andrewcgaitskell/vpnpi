@@ -1,3 +1,9 @@
+# NTS
+
+No longer using google/squarespace domain
+All via noip
+
+
 # Introduction
 
 Install and get noip working on your chosen port
